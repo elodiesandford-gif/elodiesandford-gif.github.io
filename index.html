@@ -125,7 +125,6 @@ label{display:block}
 
 <nav class="icons" id="icons" aria-label="Desktop">
   <button class="icon" data-open="w-about"><svg><use href="#i-pc"/></svg><span>My Computer</span></button>
-  <button class="icon" data-open="w-submit"><svg><use href="#i-net"/></svg><span>Submit a post</span></button>
   <button class="icon" data-open="w-pics"><svg><use href="#i-pics"/></svg><span>Gallery</span></button>
   <button class="icon" data-open="w-insta"><svg><use href="#i-cam"/></svg><span>Instagram</span></button>
   <button class="icon" data-open="w-yt"><svg><use href="#i-vid"/></svg><span>YouTube</span></button>
@@ -183,17 +182,6 @@ label{display:block}
     </div>
   </section>
 
-  <section class="win raised" id="w-submit" data-title="Submit a post" data-icon="i-net" style="left:300px;top:170px;width:340px" hidden>
-    <form class="body sunken" id="subform">
-      <label for="sub-title">Title</label>
-      <input class="field sunken" id="sub-title" autocomplete="off">
-      <label for="sub-body">Your post</label>
-      <textarea class="field sunken" id="sub-body" rows="4" required></textarea>
-      <button class="btn raised" type="submit">Submit</button>
-      <p class="note" id="submsg" style="margin-top:8px">Demo form: posts aren't stored yet.</p>
-    </form>
-  </section>
-
   <section class="win raised" id="w-arch" data-title="Archive" data-icon="i-bin" style="left:330px;top:200px;width:320px" hidden>
     <div class="body sunken">
       <p>Older posts would be listed here by month.</p>
@@ -207,7 +195,6 @@ label{display:block}
   <ul>
     <li><button data-open="w-about"><svg><use href="#i-note"/></svg>Welcome</button></li>
     <li><button data-open="w-pics"><svg><use href="#i-pics"/></svg>Gallery</button></li>
-    <li><button data-open="w-submit"><svg><use href="#i-net"/></svg>Submit a post</button></li>
     <li><button data-open="w-insta"><svg><use href="#i-cam"/></svg>Instagram</button></li>
     <li><button data-open="w-yt"><svg><use href="#i-vid"/></svg>YouTube</button></li>
     <li><button data-open="w-give"><svg><use href="#i-heart"/></svg>JustGiving</button></li>
@@ -222,7 +209,6 @@ label{display:block}
   <span class="grip" aria-hidden="true"></span>
   <div class="ql" aria-label="Quick Launch">
     <button class="qbtn" data-open="w-about" title="Welcome" aria-label="Welcome"><svg><use href="#q-globe"/></svg></button>
-    <button class="qbtn" data-open="w-submit" title="Submit a post" aria-label="Submit a post"><svg><use href="#q-pen"/></svg></button>
     <button class="qbtn" data-open="w-pics" title="Gallery" aria-label="Gallery"><svg><use href="#q-pics"/></svg></button>
   </div>
   <span class="grip" aria-hidden="true"></span>
@@ -323,8 +309,6 @@ photos.forEach(p=>{const t=document.createElement('button');t.className='thumb s
 // clock
 const tick=()=>{$('#clock').textContent=new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'})};
 tick();setInterval(tick,15000);
-
-$('#subform').addEventListener('submit',e=>{e.preventDefault();$('#submsg').textContent='Thanks! (Demo: this form doesn’t send anywhere yet.)';e.target.reset()});
 
 // ---- 32x32 pixel-art icons, drawn on canvas ----
 const K='#000',W='#fff',L='#dfdfdf',G='#c0c0c0',D='#808080',SC='#0000a8',SH='#3a6ee8',
