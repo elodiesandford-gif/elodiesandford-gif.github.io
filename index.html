@@ -14,7 +14,7 @@
   --ui:Tahoma,"MS Sans Serif",Verdana,Geneva,sans-serif;
   color-scheme:light;
 }
-html,body{height:100%}
+html,body{height:100%;overscroll-behavior:none}
 body{background:var(--desk);color:var(--ink);font:12px/1.4 var(--ui);overflow:hidden;
   padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 *{box-sizing:border-box}
@@ -103,7 +103,7 @@ label{display:block}
 @media (max-width:640px){
   .icons{flex-direction:row;flex-wrap:wrap;right:16px;gap:4px}
   .icon{width:72px}
-  .win{left:8px!important;right:8px;width:auto!important;top:auto}
+  .win{width:calc(100vw - 32px)!important}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
@@ -245,23 +245,34 @@ $$('.win').forEach(w=>{
   bar.addEventListener('dblclick',e=>{if(!e.target.closest('.ctl'))w.classList.toggle('max')});
   // drag
   bar.addEventListener('pointerdown',e=>{
-    if(e.target.closest('.ctl')||narrow()||w.classList.contains('max'))return;
+    if(e.target.closest('.ctl')||w.classList.contains('max'))return;
     const ox=e.clientX-w.offsetLeft, oy=e.clientY-w.offsetTop;
     bar.setPointerCapture(e.pointerId);
-    const mv=ev=>{w.style.left=Math.max(-w.offsetWidth+60,Math.min(innerWidth-60,ev.clientX-ox))+'px';
+    const mv=ev=>{w.dataset.moved='1';w.style.left=Math.max(-w.offsetWidth+60,Math.min(innerWidth-60,ev.clientX-ox))+'px';
                   w.style.top=Math.max(0,Math.min(innerHeight-60,ev.clientY-oy))+'px'};
-    const up=()=>{bar.removeEventListener('pointermove',mv);bar.removeEventListener('pointerup',up)};
-    bar.addEventListener('pointermove',mv);bar.addEventListener('pointerup',up);
+    const up=()=>{bar.removeEventListener('pointermove',mv);bar.removeEventListener('pointerup',up);bar.removeEventListener('pointercancel',up)};
+    bar.addEventListener('pointermove',mv);bar.addEventListener('pointerup',up);bar.addEventListener('pointercancel',up);
   });
 });
 
 function focusWin(w){
   $$('.win').forEach(x=>x.classList.add('inactive'));
   w.classList.remove('inactive');w.style.zIndex=++z;
-  if(narrow()){w.style.top=(70+(z%4)*16)+'px'}
   renderTabs();
 }
-function openWin(id){const w=document.getElementById(id);w.hidden=false;w.dataset.min='';focusWin(w);}
+// phones: start windows below the icons, then leave them where they're dragged
+function place(w){
+  if(!narrow()||w.dataset.moved)return;
+  const below=$('#icons').getBoundingClientRect().bottom+8;
+  w.style.left='16px';
+  w.style.top=Math.max(0,Math.min(below+(z%4)*16,innerHeight-120))+'px';
+}
+function openWin(id){const w=document.getElementById(id);w.hidden=false;w.dataset.min='';place(w);focusWin(w);}
+addEventListener('resize',()=>$$('.win').forEach(w=>{
+  if(narrow()&&!w.dataset.moved){place(w);return}
+  w.style.left=Math.max(-w.offsetWidth+60,Math.min(innerWidth-60,w.offsetLeft))+'px';
+  w.style.top=Math.max(0,Math.min(innerHeight-60,w.offsetTop))+'px';
+}));
 
 function renderTabs(){
   const top=$$('.win').filter(w=>!w.hidden).sort((a,b)=>(+b.style.zIndex||0)-(+a.style.zIndex||0))[0];
@@ -367,20 +378,20 @@ function swapIcons(){$$('svg').forEach(s=>{const u=s.querySelector('use');const 
   if(ART[id]){const im=new Image();im.src=ART[id];im.className='px';im.alt='';s.replaceWith(im);}})}
 swapIcons();
 
-focusWin($('#w-pics'));focusWin($('#w-about'));
+place($('#w-pics'));focusWin($('#w-pics'));place($('#w-about'));focusWin($('#w-about'));
 
 // opening pop-up: shows every time the site loads
 const hello=$('#hello'), helloBar=$('#hello-bar');
 $('#hello-ok').onclick=$('#hello-x').onclick=()=>hello.close();
 helloBar.addEventListener('pointerdown',e=>{
-  if(e.target.closest('.ctl')||narrow())return;
+  if(e.target.closest('.ctl'))return;
   const r=hello.getBoundingClientRect(), ox=e.clientX-r.left, oy=e.clientY-r.top;
   hello.style.margin='0';hello.style.left=r.left+'px';hello.style.top=r.top+'px';
   helloBar.setPointerCapture(e.pointerId);
   const mv=ev=>{hello.style.left=Math.max(60-r.width,Math.min(innerWidth-60,ev.clientX-ox))+'px';
                 hello.style.top=Math.max(0,Math.min(innerHeight-60,ev.clientY-oy))+'px'};
-  const up=()=>{helloBar.removeEventListener('pointermove',mv);helloBar.removeEventListener('pointerup',up)};
-  helloBar.addEventListener('pointermove',mv);helloBar.addEventListener('pointerup',up);
+  const up=()=>{helloBar.removeEventListener('pointermove',mv);helloBar.removeEventListener('pointerup',up);helloBar.removeEventListener('pointercancel',up)};
+  helloBar.addEventListener('pointermove',mv);helloBar.addEventListener('pointerup',up);helloBar.addEventListener('pointercancel',up);
 });
 hello.showModal();
 </script>
