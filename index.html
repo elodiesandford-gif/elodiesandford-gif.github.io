@@ -71,6 +71,10 @@ img.px{image-rendering:pixelated;image-rendering:crisp-edges;flex:none}
 a.btn{display:inline-block;color:var(--ink);text-decoration:none;text-align:center}
 .addr{display:flex;align-items:center;gap:6px;padding:0 6px 4px}
 .addr div{flex:1;min-width:0;background:var(--paper);padding:3px 5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#w-fight{max-height:calc(100vh - 46px);max-height:calc(100dvh - 46px)}
+.fight-title{text-wrap:balance}
+.fight-video{display:block;height:min(42vh,420px);aspect-ratio:9/16;max-width:100%;border:0;margin:8px auto;background:var(--dark)}
+#w-fight a{overflow-wrap:anywhere}
 label{display:block}
 .note{color:#555;font-size:11px}
 
@@ -180,6 +184,16 @@ label{display:block}
     </div>
   </section>
 
+  <section class="win raised" id="w-fight" data-title="Charity Fight" data-icon="i-heart" style="left:600px;top:16px;width:340px">
+    <div class="body sunken">
+      <h2 class="fight-title">Come to my fight for Charity on the 29th November 2026!</h2>
+      <iframe class="fight-video" src="https://www.youtube-nocookie.com/embed/cR09OwazuH8?rel=0" title="Animation of Elodie boxing in her elf costume" allow="encrypted-media; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+      <p>Here’s a little animation of me boxing in my elf costume lol</p>
+      <p>🎟️ Buy tickets: <a href="https://wcbevents.co.uk/tickets/" target="_blank" rel="noopener noreferrer">https://wcbevents.co.uk/tickets/</a></p>
+      <p>Can’t make it but still want to support the fundraiser? You can donate to my JustGiving page here: <a href="https://www.justgiving.com/page/elodiefos" target="_blank" rel="noopener noreferrer">https://www.justgiving.com/page/elodiefos</a></p>
+    </div>
+  </section>
+
   <section class="win raised" id="w-arch" data-title="Archive" data-icon="i-bin" style="left:330px;top:200px;width:320px" hidden>
     <div class="body sunken">
       <p>Older posts would be listed here by month.</p>
@@ -265,6 +279,7 @@ function place(w){
   if(!narrow()||w.dataset.moved)return;
   const below=$('#icons').getBoundingClientRect().bottom+8;
   w.style.left='16px';
+  if(w.id==='w-fight'){w.style.top='8px';return}
   w.style.top=Math.max(0,Math.min(below+(z%4)*16,innerHeight-120))+'px';
 }
 function openWin(id){const w=document.getElementById(id);w.hidden=false;w.dataset.min='';place(w);focusWin(w);}
@@ -379,6 +394,8 @@ function swapIcons(){$$('svg').forEach(s=>{const u=s.querySelector('use');const 
 swapIcons();
 
 place($('#w-pics'));focusWin($('#w-pics'));place($('#w-about'));focusWin($('#w-about'));
+if(!narrow())$('#w-fight').style.left=Math.max(140,innerWidth-364)+'px';
+place($('#w-fight'));focusWin($('#w-fight'));
 
 // opening pop-up: shows every time the site loads
 const hello=$('#hello'), helloBar=$('#hello-bar');
