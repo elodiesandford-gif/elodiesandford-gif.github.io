@@ -139,8 +139,8 @@ label{display:block}
   <button class="icon" data-open="w-pics"><svg><use href="#i-pics"/></svg><span>Gallery</span></button>
   <button class="icon" data-open="w-insta"><svg><use href="#i-cam"/></svg><span>Instagram</span></button>
   <button class="icon" data-open="w-yt"><svg><use href="#i-vid"/></svg><span>YouTube</span></button>
-  <button class="icon" data-open="w-give"><svg><use href="#i-heart"/></svg><span>JustGiving</span></button>
-  <button class="icon" data-open="w-privacy"><svg><use href="#i-lock"/></svg><span>Privacy Notice</span></button>
+  <button class="icon" data-open="w-give"><svg><use href="#i-glove"/></svg><span>JustGiving</span></button>
+  <button class="icon" data-open="w-privacy"><svg><use href="#i-cookie"/></svg><span>Privacy Notice</span></button>
   <button class="icon" data-open="w-arch"><svg><use href="#i-bin"/></svg><span>Archive</span></button>
 </nav>
 
@@ -182,7 +182,7 @@ label{display:block}
     </div>
   </section>
 
-  <section class="win raised" id="w-give" data-title="JustGiving - elodiefos" data-icon="i-heart" style="left:400px;top:170px;width:360px" hidden>
+  <section class="win raised" id="w-give" data-title="JustGiving - elodiefos" data-icon="i-glove" style="left:400px;top:170px;width:360px" hidden>
     <div class="menu"><span><u>F</u>ile</span><span><u>V</u>iew</span><span><u>G</u>o</span></div>
     <div class="addr"><span>Address</span><div class="sunken">justgiving.com/elodiefos</div></div>
     <div class="body sunken">
@@ -192,7 +192,7 @@ label{display:block}
     </div>
   </section>
 
-  <section class="win raised" id="w-fight" data-title="Charity Fight" data-icon="i-heart" style="left:600px;top:16px;width:340px">
+  <section class="win raised" id="w-fight" data-title="Charity Fight" data-icon="i-glove" style="left:0;top:16px;width:340px">
     <div class="body sunken">
       <h2 class="fight-title">Come to my fight for Charity on the 29th November 2026!</h2>
       <div class="fight-off" id="fight-off">
@@ -201,7 +201,6 @@ label{display:block}
         <p><a href="https://www.youtube.com/shorts/cR09OwazuH8" target="_blank" rel="noopener noreferrer">Watch on YouTube instead</a></p>
       </div>
       <iframe class="fight-video" id="fight-video" hidden title="Animation of Elodie boxing in her elf costume" allow="encrypted-media; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
-      <p>Here’s a little animation of me boxing in my elf costume lol</p>
       <p>🎟️ Buy tickets: <a href="https://wcbevents.co.uk/tickets/" target="_blank" rel="noopener noreferrer">https://wcbevents.co.uk/tickets/</a></p>
       <p>Can’t make it but still want to support the fundraiser? You can donate to my JustGiving page here: <a href="https://www.justgiving.com/page/elodiefos" target="_blank" rel="noopener noreferrer">https://www.justgiving.com/page/elodiefos</a></p>
       <p>I'm raising money for <a href="https://www.lgtcharity.org.uk/" target="_blank" rel="noopener noreferrer">Lewisham and Greenwich NHS Trust</a> 🏥. These hospitals treated my dying Granny in her last moments, my Dad's stroke, delivered my Sister's kids, and will probably be treating my post fight boxing injuries.</p>
@@ -209,7 +208,7 @@ label{display:block}
     </div>
   </section>
 
-  <section class="win raised" id="w-privacy" data-title="Privacy Notice" data-icon="i-lock" style="left:430px;top:40px;width:420px" hidden>
+  <section class="win raised" id="w-privacy" data-title="Privacy Notice" data-icon="i-cookie" style="left:430px;top:40px;width:420px" hidden>
     <div class="body sunken">
       <h2>Privacy notice</h2>
       <p class="note">Last updated: 5 November 2026</p>
@@ -240,8 +239,8 @@ label{display:block}
     <li><button data-open="w-pics"><svg><use href="#i-pics"/></svg>Gallery</button></li>
     <li><button data-open="w-insta"><svg><use href="#i-cam"/></svg>Instagram</button></li>
     <li><button data-open="w-yt"><svg><use href="#i-vid"/></svg>YouTube</button></li>
-    <li><button data-open="w-give"><svg><use href="#i-heart"/></svg>JustGiving</button></li>
-    <li><button data-open="w-privacy"><svg><use href="#i-lock"/></svg>Privacy Notice</button></li>
+    <li><button data-open="w-give"><svg><use href="#i-glove"/></svg>JustGiving</button></li>
+    <li><button data-open="w-privacy"><svg><use href="#i-cookie"/></svg>Privacy Notice</button></li>
     <li><button data-open="w-arch"><svg><use href="#i-bin"/></svg>Archive</button></li>
     <li><hr></li>
     <li><button id="shutdown"><svg><use href="#i-off"/></svg>Close all windows</button></li>
@@ -268,7 +267,7 @@ label{display:block}
 </dialog>
 
 <dialog class="popup raised" id="cookie" aria-labelledby="cookie-title">
-  <div class="bar"><svg><use href="#i-lock"/></svg><span class="t" id="cookie-title">Cookies</span></div>
+  <div class="bar"><svg><use href="#i-cookie"/></svg><span class="t" id="cookie-title">Cookies</span></div>
   <div class="body sunken"><p>This site only needs your OK for one thing: the YouTube video. If you accept, YouTube (Google) may set cookies and collect data about your visit. If you reject, the video stays off and you can watch it on YouTube instead.</p></div>
   <div class="acts">
     <button class="btn raised" id="cookie-accept" type="button">Accept</button>
@@ -317,15 +316,22 @@ function focusWin(w){
   renderTabs();
 }
 // phones: start windows below the icons, then leave them where they're dragged
+function centre(w){
+  w.style.left='0';
+  w.style.left=Math.max(8,(innerWidth-w.offsetWidth)/2)+'px';
+  w.style.top=Math.max(8,(innerHeight-30-w.offsetHeight)/2)+'px';
+}
 function place(w){
+  if(w.id==='w-fight'&&!w.dataset.moved){centre(w);return}
   if(!narrow()||w.dataset.moved)return;
   const below=$('#icons').getBoundingClientRect().bottom+8;
   w.style.left='16px';
-  if(w.id==='w-fight'||w.id==='w-privacy'){w.style.top='8px';return}
+  if(w.id==='w-privacy'){w.style.top='8px';return}
   w.style.top=Math.max(0,Math.min(below+(z%4)*16,innerHeight-120))+'px';
 }
 function openWin(id){const w=document.getElementById(id);w.hidden=false;w.dataset.min='';place(w);focusWin(w);}
 addEventListener('resize',()=>$$('.win').forEach(w=>{
+  if(w.id==='w-fight'&&!w.dataset.moved){centre(w);return}
   if(narrow()&&!w.dataset.moved){place(w);return}
   w.style.left=Math.max(-w.offsetWidth+60,Math.min(innerWidth-60,w.offsetLeft))+'px';
   w.style.top=Math.max(0,Math.min(innerHeight-60,w.offsetTop))+'px';
@@ -415,8 +421,26 @@ const ART={
 // 16px taskbar art
 Object.assign(ART,{
   'i-vid':px(R=>{monitor(R,3,3,26,20);for(let i=0;i<6;i++)R(13+i,8+i,1,10-2*i,W);R(12,23,8,2,D);R(8,25,16,3,G);R(8,27,16,1,K);},32),
-  'i-lock':px(R=>{R(10,3,12,3,K);R(8,5,3,11,K);R(21,5,3,11,K);R(11,5,10,2,D);R(10,6,2,10,G);R(20,6,2,10,G);R(5,14,22,15,K);R(6,15,20,13,Y);R(6,15,20,1,YL);R(6,15,1,13,YL);R(6,27,20,1,Y2);R(25,16,1,12,Y2);R(14,19,4,4,K);R(15,23,2,3,K);},32),
-  'i-heart':px(R=>{[[3,3,4],[3,9,4],[4,2,12],[5,1,14],[6,1,14],[7,1,14],[8,1,14],[9,2,12],[10,3,10],[11,4,8],[12,5,6],[13,6,4],[14,7,2]].forEach(([y,x,w])=>R(x*2,y*2,w*2,2,'#d8204a'));R(8,10,4,2,W);R(6,12,2,4,W);},32),
+  'i-cookie':px(R=>{const c='#d99a4e',hi='#efc07e',lo='#a86f2e',choc='#4a2a12';
+    const m=(x,y)=>Math.hypot(x-15.5,y-16.5)<=13.6&&Math.hypot(x-26,y-6)>5.2;
+    for(let y=0;y<32;y++)for(let x=0;x<32;x++){if(!m(x,y))continue;
+      const edge=!m(x-1,y)||!m(x+1,y)||!m(x,y-1)||!m(x,y+1);
+      R(x,y,1,1,edge?K:(x+y<20?hi:(x+y>41?lo:c)));}
+    [[9,10,3],[16,8,3],[7,18,3],[14,15,4],[21,16,3],[12,23,3],[19,23,3]].forEach(([x,y,s])=>{R(x,y,s,s,choc);R(x,y,1,1,lo)});},32),
+  'i-glove':px(R=>{const red='#d8202c',hi='#ff8a78',lo='#9c1018',cf='#f4f4f4',cs='#b9b9b9';
+    const hand=(x,y)=>((x-18.5)/11)**2+((y-12)/10)**2<=1;
+    const thumb=(x,y)=>((x-7)/5.6)**2+((y-15.5)/6.6)**2<=1;
+    const wrist=(x,y)=>x>=11&&x<=26&&y>=19&&y<=22;
+    const cuff=(x,y)=>x>=10&&x<=27&&y>=23&&y<=30;
+    const m=(x,y)=>hand(x,y)||thumb(x,y)||wrist(x,y)||cuff(x,y);
+    for(let y=0;y<32;y++)for(let x=0;x<32;x++){if(!m(x,y))continue;
+      const edge=!m(x-1,y)||!m(x+1,y)||!m(x,y-1)||!m(x,y+1);
+      let col=cuff(x,y)?((y===26||y===27)?red:(y>=29?cs:cf)):((x+y*1.1>38)?lo:red);
+      R(x,y,1,1,edge?K:col);}
+    R(14,4,7,2,hi);R(12,6,3,2,hi);R(4,11,3,2,hi);
+    // thumb crease and cuff seam
+    R(12,10,1,3,K);R(11,13,1,5,K);R(12,18,1,2,K);R(13,20,1,1,K);
+    R(11,23,16,1,K);},32),
   'i-cam':px(R=>{R(10,5,8,3,K);R(11,6,6,2,D);R(2,8,28,18,K);R(3,9,26,16,G);R(3,9,26,1,W);R(3,9,1,16,W);R(3,24,26,1,D);R(24,11,3,2,'#c8302a');
     R(10,10,12,12,K);R(11,11,10,10,D);R(12,12,8,8,SC);R(13,13,6,6,'#000050');R(13,13,2,2,SH);},32),
   'i-flag':px(R=>{const o=[1,0,0,0,1,1,2,2,2,1,1,0],cols=['#e8261c','#f5c400','#21a03a','#1f5fd6'];
@@ -437,7 +461,6 @@ function swapIcons(){$$('svg').forEach(s=>{const u=s.querySelector('use');const 
 swapIcons();
 
 place($('#w-pics'));focusWin($('#w-pics'));place($('#w-about'));focusWin($('#w-about'));
-if(!narrow())$('#w-fight').style.left=Math.max(140,innerWidth-364)+'px';
 place($('#w-fight'));focusWin($('#w-fight'));
 
 // opening pop-up: shows every time the site loads
@@ -463,6 +486,7 @@ const saveChoice=v=>{try{localStorage.setItem(CK,v)}catch(e){}};
 function showVideo(on){
   fv.hidden=!on;foff.hidden=on;
   if(on){if(!fv.getAttribute('src'))fv.src=YT}else fv.removeAttribute('src');
+  place($('#w-fight'));
 }
 function choose(v){saveChoice(v);showVideo(v==='accepted');if(ck.open)ck.close()}
 $('#cookie-accept').onclick=$('#fight-allow').onclick=()=>choose('accepted');
