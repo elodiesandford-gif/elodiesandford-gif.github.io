@@ -378,6 +378,17 @@ const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 let z=10;
 const narrow=()=>matchMedia('(max-width:640px)').matches;
 
+// phones can skip the click after a touch, so title bar buttons act on the touch itself
+function tapBtn(b,fn){
+  let touched=0;
+  b.addEventListener('touchend',e=>{
+    const p=e.changedTouches[0],r=b.getBoundingClientRect(),pad=14;
+    if(p.clientX<r.left-pad||p.clientX>r.right+pad||p.clientY<r.top-pad||p.clientY>r.bottom+pad)return;
+    e.preventDefault();touched=Date.now();fn();
+  },{passive:false});
+  b.addEventListener('click',()=>{if(Date.now()-touched>700)fn()});
+}
+
 // build title bars
 $$('.win').forEach(w=>{
   const bar=document.createElement('div');bar.className='bar';
@@ -386,14 +397,14 @@ $$('.win').forEach(w=>{
    <button class="ctl raised" data-a="max" aria-label="Maximise">□</button>
    <button class="ctl raised" data-a="close" aria-label="Close">✕</button>`;
   w.prepend(bar);
-  w.addEventListener('pointerdown',()=>focusWin(w));
-  bar.addEventListener('click',e=>{
-    const a=e.target.closest('.ctl')?.dataset.a; if(!a)return;
+  w.addEventListener('pointerdown',e=>{if(!e.target.closest('.ctl'))focusWin(w)});
+  bar.querySelectorAll('.ctl').forEach(c=>tapBtn(c,()=>{
+    const a=c.dataset.a;
     if(a==='close'){w.hidden=true;w.dataset.min='';}
     if(a==='min'){w.hidden=true;w.dataset.min='1';}
     if(a==='max'){w.classList.toggle('max');}
     renderTabs();
-  });
+  }));
   bar.addEventListener('dblclick',e=>{if(!e.target.closest('.ctl'))w.classList.toggle('max')});
   // drag
   bar.addEventListener('pointerdown',e=>{
@@ -664,7 +675,7 @@ place($('#w-fight'));focusWin($('#w-fight'));
 
 // opening pop-up: shows every time the site loads
 const hello=$('#hello'), helloBar=$('#hello-bar');
-$('#hello-ok').onclick=$('#hello-x').onclick=()=>hello.close();
+tapBtn($('#hello-ok'),()=>hello.close());tapBtn($('#hello-x'),()=>hello.close());
 helloBar.addEventListener('pointerdown',e=>{
   if(e.target.closest('.ctl'))return;
   hello.classList.add('dragging');
