@@ -81,6 +81,10 @@ a.btn{display:inline-block;color:var(--ink);text-decoration:none;text-align:cent
 @media (max-width:640px){#w-privacy{max-height:calc(100vh - 46px);max-height:calc(100dvh - 46px)}}
 .fight-off{background:var(--face);padding:10px;margin:8px 0;text-align:center}
 .fight-off p{margin:8px auto;max-width:none}
+@media (min-width:641px){.icons{flex-wrap:wrap;align-content:flex-start;max-height:calc(100vh - 54px);max-height:calc(100dvh - 54px)}}
+#w-terms{max-height:calc(100vh - 86px);max-height:calc(100dvh - 86px)}
+@media (max-width:640px){#w-terms{max-height:calc(100vh - 46px);max-height:calc(100dvh - 46px)}}
+.linkbtn{background:none;border:0;padding:0;font:inherit;color:#00e;text-decoration:underline;cursor:pointer}
 #w-spotify{max-height:calc(100vh - 86px);max-height:calc(100dvh - 86px)}
 .sp-player{display:block;width:100%;height:352px;border:0;border-radius:12px}
 #w-maze{max-height:calc(100vh - 38px);max-height:calc(100dvh - 38px)}
@@ -169,11 +173,12 @@ label{display:block}
   <button class="icon" data-open="w-spotify"><svg><use href="#i-music"/></svg><span>Playlist</span></button>
   <button class="icon" data-open="w-maze"><svg><use href="#i-maze"/></svg><span>Elf Maze</span></button>
   <button class="icon" data-open="w-privacy"><svg><use href="#i-lock"/></svg><span>Privacy Notice</span></button>
+  <button class="icon" data-open="w-terms"><svg><use href="#i-terms"/></svg><span>Terms of Use</span></button>
   <button class="icon" data-open="w-arch"><svg><use href="#i-bin"/></svg><span>Archive</span></button>
 </nav>
 
 <main id="desk">
-  <section class="win raised" id="w-about" data-title="Welcome - Notepad" data-icon="i-note" style="left:140px;top:24px;width:420px">
+  <section class="win raised" id="w-about" data-title="Welcome - Notepad" data-icon="i-note" style="left:220px;top:24px;width:420px">
     <div class="menu"><span><u>F</u>ile</span><span><u>E</u>dit</span><span><u>S</u>earch</span><span><u>H</u>elp</span></div>
     <div class="body sunken">
       <h2>hello, welcome to elsdie</h2>
@@ -182,7 +187,7 @@ label{display:block}
     <div class="status"><div class="sunken">Ln 1, Col 1</div><div class="sunken">Updated Nov 2026</div></div>
   </section>
 
-  <section class="win raised" id="w-pics" data-title="Gallery - Image Viewer" data-icon="i-pics" style="left:590px;top:60px;width:380px">
+  <section class="win raised" id="w-pics" data-title="Gallery - Image Viewer" data-icon="i-pics" style="left:660px;top:60px;width:380px">
     <div class="menu"><span><u>F</u>ile</span><span><u>V</u>iew</span></div>
     <div class="body sunken">
       <div class="thumbs" id="thumbs"></div>
@@ -289,7 +294,27 @@ label{display:block}
       <p><b>Your cookie choices</b><br>You can change your mind at any time. If you reject after accepting, the video and playlist are removed from the page, but any cookies they've already set stay until you clear them in your browser.</p>
       <p><button class="btn raised" id="cookie-settings" type="button">Cookie settings</button></p>
       <p><b>Links to other sites</b><br>Links to Instagram, YouTube, Spotify, JustGiving, WCB Events and the Lewisham and Greenwich NHS Trust charity open their own sites, which have their own privacy policies.</p>
+      <p><b>Terms of use</b><br>Using this site is also covered by the <button class="linkbtn" id="privacy-terms" type="button">Terms of Use</button>.</p>
       <p><b>Your rights</b><br>You can ask me for a copy of any personal data I hold about you, or ask me to correct or delete it. You can also <a href="https://ico.org.uk/make-a-complaint/" target="_blank" rel="noopener noreferrer">complain to the ICO</a>, the UK's data protection regulator.</p>
+    </div>
+  </section>
+
+  <section class="win raised" id="w-terms" data-title="Terms of Use" data-icon="i-terms" style="left:400px;top:30px;width:420px" hidden>
+    <div class="body sunken">
+      <h2>Terms of use</h2>
+      <p class="note">Last updated: 5 November 2026</p>
+      <p><b>About these terms</b><br>This is the personal website of Elodie Sandford. By using it, you agree to these terms. If you don't agree, please don't use the site. You can contact me at elodie@elodiesandford.com.</p>
+      <p><b>Using this site</b><br>You can browse the site, play the Elf Maze and open the links for your own personal use. Please don't misuse the site, try to break or interfere with it, or use it for anything unlawful.</p>
+      <p><b>Who this site is for</b><br>This is a general personal site and isn't aimed at children. The YouTube video and Spotify player are provided by those companies, and their own rules apply, including any age limits. If you're under 13, please don't use the Spotify player.</p>
+      <p><b>My content</b><br>Unless stated otherwise, the photos, artwork, text and game on this site belong to me. Please don't copy or reuse them without asking me first.</p>
+      <p><b>YouTube, Spotify and other sites</b><br>The video and playlist come from YouTube and Spotify, and that content belongs to them or its owners. Using them means their own terms also apply: <a href="https://www.youtube.com/t/terms" target="_blank" rel="noopener noreferrer">YouTube's terms</a> and <a href="https://www.spotify.com/uk/legal/end-user-agreement/" target="_blank" rel="noopener noreferrer">Spotify's terms</a>. Please don't download, copy or change their content through this site. These services are only available if you accept cookies, and I can't guarantee they'll always work.</p>
+      <p>Links to other sites, including Instagram, JustGiving, WCB Events and the Lewisham and Greenwich NHS Trust charity, are there for convenience. I don't run those sites and I'm not responsible for their content or services.</p>
+      <p><b>Tickets and donations</b><br>Tickets and donations are handled by the sites I link to, not by me or this site. Their terms apply to anything you buy or give there, and any questions about a payment should go to them first.</p>
+      <p><b>No guarantees</b><br>I provide this site for free and as it is. I try to keep it accurate and working, but I can't promise it will always be available, error-free or up to date.</p>
+      <p><b>Liability</b><br>As far as the law allows, I'm not liable for any loss or damage from using this site or relying on anything on it. Nothing in these terms limits liability that can't legally be limited, such as for death or personal injury caused by negligence or for fraud, or takes away your legal rights as a consumer.</p>
+      <p><b>Your privacy</b><br>The <button class="linkbtn" id="terms-privacy" type="button">Privacy Notice</button> explains what data is collected, how cookies are used and how to manage them.</p>
+      <p><b>Changes</b><br>I may update these terms from time to time, and the date at the top shows the latest version.</p>
+      <p><b>Law</b><br>These terms are governed by the law of England and Wales, and the courts of England and Wales will deal with any disputes, unless the law gives you the right to go to court elsewhere in the UK.</p>
     </div>
   </section>
 
@@ -312,6 +337,7 @@ label{display:block}
     <li><button data-open="w-spotify"><svg><use href="#i-music"/></svg>My Playlist</button></li>
     <li><button data-open="w-maze"><svg><use href="#i-maze"/></svg>Elf Maze</button></li>
     <li><button data-open="w-privacy"><svg><use href="#i-lock"/></svg>Privacy Notice</button></li>
+    <li><button data-open="w-terms"><svg><use href="#i-terms"/></svg>Terms of Use</button></li>
     <li><button data-open="w-arch"><svg><use href="#i-bin"/></svg>Archive</button></li>
     <li><hr></li>
     <li><button id="shutdown"><svg><use href="#i-off"/></svg>Close all windows</button></li>
@@ -398,7 +424,7 @@ function place(w){
   if(!narrow()||w.dataset.moved)return;
   const below=$('#icons').getBoundingClientRect().bottom+8;
   w.style.left='16px';
-  if(w.id==='w-privacy'||w.id==='w-spotify'){w.style.top='8px';return}
+  if(w.id==='w-privacy'||w.id==='w-spotify'||w.id==='w-terms'){w.style.top='8px';return}
   w.style.top=Math.max(0,Math.min(below+(z%4)*16,innerHeight-120))+'px';
 }
 function openWin(id){const w=document.getElementById(id);w.hidden=false;w.dataset.min='';place(w);focusWin(w);}
@@ -498,6 +524,7 @@ Object.assign(ART,{
   'i-heart':px(R=>{[[3,3,4],[3,9,4],[4,2,12],[5,1,14],[6,1,14],[7,1,14],[8,1,14],[9,2,12],[10,3,10],[11,4,8],[12,5,6],[13,6,4],[14,7,2]].forEach(([y,x,w])=>R(x*2,y*2,w*2,2,'#d8204a'));R(8,10,4,2,W);R(6,12,2,4,W);},32),
   'i-maze':px(R=>{R(2,2,28,28,K);R(3,3,26,26,GR);const p='#6cc848';[[6,6,20,3],[6,6,3,10],[6,13,12,3],[15,13,3,8],[6,20,12,3],[6,20,3,6],[6,23,20,3],[23,6,3,20]].forEach(([x,y,w,h])=>R(x,y,w,h,p));R(23,21,3,3,'#ffe14d');R(7,7,2,2,'#d8204a');},32),
   'i-music':px(R=>{const c='#2a2ad0',d='#12127a',h='#7c7cf0';R(11,5,3,18,c);R(24,3,3,18,c);R(11,5,16,3,c);R(11,8,16,2,d);R(6,21,8,6,c);R(19,19,8,6,c);R(7,22,3,2,h);R(20,20,3,2,h);R(12,6,12,1,h);},32),
+  'i-terms':px(R=>{R(6,2,20,28,K);R(7,3,18,26,W);R(23,3,2,26,L);for(let y=7;y<20;y+=3)R(10,y,12,1,'#000080');R(10,22,6,1,'#000080');R(19,21,5,5,'#c8302a');R(20,22,3,3,'#e86a5a');R(20,26,1,3,'#c8302a');R(22,26,1,3,'#c8302a');},32),
   'i-cookie':px(R=>{const c='#d99a4e',hi='#efc07e',lo='#a86f2e',choc='#4a2a12';
     const m=(x,y)=>Math.hypot(x-15.5,y-16.5)<=13.6&&Math.hypot(x-26,y-6)>5.2;
     for(let y=0;y<32;y++)for(let x=0;x<32;x++){if(!m(x,y))continue;
@@ -667,6 +694,8 @@ function choose(v){saveChoice(v);showVideo(v==='accepted');if(ck.open)ck.close()
 $('#cookie-accept').onclick=$('#fight-allow').onclick=$('#sp-allow').onclick=()=>choose('accepted');
 $('#cookie-reject').onclick=()=>choose('rejected');
 $('#cookie-more').onclick=()=>{ck.close();hello.close();openWin('w-privacy')};
+$('#terms-privacy').onclick=()=>openWin('w-privacy');
+$('#privacy-terms').onclick=()=>openWin('w-terms');
 $('#cookie-settings').onclick=()=>{if(!ck.open)ck.showModal()};
 ck.addEventListener('cancel',e=>e.preventDefault());
 const choice=readChoice();
