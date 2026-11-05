@@ -107,6 +107,9 @@ label{display:block}
 .popup::backdrop{background:transparent}
 .popup .body{margin:2px 2px 0;padding:10px;flex:none;overflow:hidden}
 .popup .logo{display:block;width:100%;max-width:844px;height:auto;margin:0 auto}
+@keyframes hello-pulse{from{transform:scale(.8)}to{transform:scale(1)}}
+@media (prefers-reduced-motion:no-preference){#hello{animation:hello-pulse 1.2s ease-in-out infinite alternate}}
+#hello.dragging,#hello:has(#hello-ok:hover){animation-play-state:paused}
 .popup .acts{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;padding:10px 2px 7px}
 #cookie{width:min(560px,calc(100vw - 32px));margin:auto auto calc(40px + env(safe-area-inset-bottom,0px))}
 #cookie .bar{cursor:default}
@@ -472,12 +475,13 @@ const hello=$('#hello'), helloBar=$('#hello-bar');
 $('#hello-ok').onclick=$('#hello-x').onclick=()=>hello.close();
 helloBar.addEventListener('pointerdown',e=>{
   if(e.target.closest('.ctl'))return;
-  const r=hello.getBoundingClientRect(), ox=e.clientX-r.left, oy=e.clientY-r.top;
-  hello.style.margin='0';hello.style.left=r.left+'px';hello.style.top=r.top+'px';
+  hello.classList.add('dragging');
+  const r=hello.getBoundingClientRect(), L=r.left+(r.width-hello.offsetWidth)/2, T=r.top+(r.height-hello.offsetHeight)/2, ox=e.clientX-L, oy=e.clientY-T;
+  hello.style.margin='0';hello.style.left=L+'px';hello.style.top=T+'px';
   helloBar.setPointerCapture(e.pointerId);
   const mv=ev=>{hello.style.left=Math.max(60-r.width,Math.min(innerWidth-60,ev.clientX-ox))+'px';
                 hello.style.top=Math.max(0,Math.min(innerHeight-60,ev.clientY-oy))+'px'};
-  const up=()=>{helloBar.removeEventListener('pointermove',mv);helloBar.removeEventListener('pointerup',up);helloBar.removeEventListener('pointercancel',up)};
+  const up=()=>{hello.classList.remove('dragging');helloBar.removeEventListener('pointermove',mv);helloBar.removeEventListener('pointerup',up);helloBar.removeEventListener('pointercancel',up)};
   helloBar.addEventListener('pointermove',mv);helloBar.addEventListener('pointerup',up);helloBar.addEventListener('pointercancel',up);
 });
 hello.showModal();
