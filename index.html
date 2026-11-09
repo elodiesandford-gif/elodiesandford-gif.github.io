@@ -149,6 +149,14 @@ label{display:block}
   .win{width:calc(100vw - 32px)!important}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+/* resize grip: drag the bottom-right corner to resize a window */
+.win .body{min-height:0}
+.grip{position:absolute;right:3px;bottom:3px;width:14px;height:14px;cursor:nwse-resize;touch-action:none;z-index:2;
+  background:linear-gradient(135deg,transparent 0 40%,var(--hi,#fff) 40% 47%,var(--dark,#808080) 47% 55%,transparent 55% 64%,var(--hi,#fff) 64% 71%,var(--dark,#808080) 71% 79%,transparent 79% 88%,var(--hi,#fff) 88% 95%,var(--dark,#808080) 95%)}
+.win:has(.grip) .status{padding-right:16px}
+.win.max .grip{display:none}
+@media (pointer:coarse){.grip{width:24px;height:24px}}
 </style>
 <!-- Privacy-friendly analytics by Plausible -->
 <script async src="https://plausible.io/js/pa--CoSznan2-fTFNwQyCH-f.js"></script>
@@ -425,6 +433,24 @@ $$('.win').forEach(w=>{
     const up=()=>{bar.removeEventListener('pointermove',mv);bar.removeEventListener('pointerup',up);bar.removeEventListener('pointercancel',up)};
     bar.addEventListener('pointermove',mv);bar.addEventListener('pointerup',up);bar.addEventListener('pointercancel',up);
   });
+  // resize from the bottom-right grip (not the maze, which sizes itself to fit the screen)
+  if(w.id!=='w-maze'){
+    const g=document.createElement('div');g.className='grip';g.setAttribute('aria-hidden','true');
+    w.append(g);
+    g.addEventListener('pointerdown',e=>{
+      if(w.classList.contains('max'))return;
+      e.preventDefault();e.stopPropagation();focusWin(w);
+      const sx=e.clientX, sy=e.clientY, sw=w.offsetWidth, sh=w.offsetHeight;
+      g.setPointerCapture(e.pointerId);
+      const mv=ev=>{
+        w.dataset.moved='1';
+        w.style.width=Math.max(220,Math.min(innerWidth-w.offsetLeft-4,sw+ev.clientX-sx))+'px';
+        w.style.height=Math.max(120,Math.min(innerHeight-30-w.offsetTop,sh+ev.clientY-sy))+'px';
+      };
+      const up=()=>{g.removeEventListener('pointermove',mv);g.removeEventListener('pointerup',up);g.removeEventListener('pointercancel',up)};
+      g.addEventListener('pointermove',mv);g.addEventListener('pointerup',up);g.addEventListener('pointercancel',up);
+    });
+  }
 });
 
 function focusWin(w){
